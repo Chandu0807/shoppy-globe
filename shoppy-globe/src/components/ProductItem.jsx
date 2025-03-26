@@ -18,35 +18,35 @@ function ProductItem({ product }) {
   };
 
   return (
-    <div className="product-item-card" onClick={handleProductClick}>
-      <div className="product-badge">
+    <div className="product-item-container" onClick={handleProductClick}>
+      <div className="product-item-badge">
         {product.discountPercentage > 0 && (
-          <span className="discount-tag">
+          <span className="discount-badge">
             {product.discountPercentage}% OFF
           </span>
         )}
       </div>
-      <img 
-        src={product.thumbnail} 
-        alt={product.title} 
-        className="product-image"
-      />
-      <div className="product-details">
-        <h3 className="product-title">{product.title}</h3>
-        <div className="product-price-section">
+      <div className="product-item-image">
+        <img 
+          src={product.thumbnail} 
+          alt={product.title} 
+        />
+      </div>
+      <div className="product-item-details">
+        <h3>{product.title}</h3>
+        <div className="product-item-pricing">
           <span className="product-price">${product.price}</span>
-          <span className="product-rating">
-            ⭐ {product.rating.toFixed(1)}
-          </span>
+          <div className="product-rating">
+            <span>⭐</span>
+            <span>{product.rating.toFixed(1)}</span>
+          </div>
         </div>
-        <div className="product-actions">
-          <button 
-            className="add-to-cart-btn" 
-            onClick={handleAddToCart}
-          >
-            Add to Cart
-          </button>
-        </div>
+        <button 
+          className="add-to-cart-button" 
+          onClick={handleAddToCart}
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

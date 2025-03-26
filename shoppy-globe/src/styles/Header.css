@@ -1,83 +1,144 @@
-.main-header {
-    background-color: var(--white);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 7%;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .main-header .logo a {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-decoration: none;
-    letter-spacing: -1px;
-    transition: color 0.3s ease;
-  }
-  
-  .main-header .logo a:hover {
-    color: var(--secondary-color);
-  }
-  
-  .main-nav {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-  }
-  
-  .main-nav a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    position: relative;
-    transition: color 0.3s ease;
-    font-size: 1rem;
-  }
-  
-  .main-nav a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
-  }
-  
-  .main-nav a:hover {
-    color: var(--primary-color);
-  }
-  
-  .main-nav a:hover::after {
-    width: 100%;
-  }
-  
-  .cart-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: transform 0.2s ease;
-  }
-  
-  .cart-link:hover {
-    transform: scale(1.05);
-  }
-  
-  .cart-count {
-    background-color: var(--accent-color);
-    color: var(--white);
-    border-radius: 50%;
-    padding: 3px 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-left: 5px;
-    min-width: 22px;
-    text-align: center;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700&display=swap');
+
+.creative-header {
+  background-color: var(--white);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.logo-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: -1px;
+  transition: color 0.3s ease;
+}
+
+.logo-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+  margin-top: 5px;
+}
+
+.creative-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.creative-nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+}
+
+.creative-nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.creative-nav a:hover {
+  color: var(--primary-color);
+}
+
+.creative-nav a:hover::after {
+  width: 100%;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.search-input {
+  border: none;
+  padding: 10px 15px;
+  background-color: transparent;
+  width: 250px;
+  font-family: 'Inter', sans-serif;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.cart-link {
+  position: relative;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.cart-link:hover {
+  color: var(--primary-color);
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--accent-color);
+  color: var(--white);
+  border-radius: 50%;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 22px;
+  text-align: center;
+}

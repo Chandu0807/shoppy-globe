@@ -1,75 +1,57 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, updateCartQuantity } from '../redux/actions/cartActions';
-import '../styles/Cart.css';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCartItemCount } from '../redux/selectors/cartSelectors';
+import '../styles/Header.css';
 
-function Cart() {
-  const cartItems = useSelector(state => state.cart.items);
-  const dispatch = useDispatch();
-
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => 
-      total + (item.price * item.quantity), 0
-    ).toFixed(2);
-  };
-
-  const handleRemoveItem = (productId) => {
-    dispatch(removeFromCart(productId));
-  };
-
-  const handleQuantityChange = (productId, newQuantity) => {
-    if (newQuantity > 0) {
-      dispatch(updateCartQuantity(productId, newQuantity));
-    }
-  };
+function Header() {
+  const cartItemCount = useSelector(selectCartItemCount);
 
   return (
-    <div className="cart-container">
-      <h1>Your Shopping Cart</h1>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty</p>
-      ) : (
-        <>
-          <div className="cart-items">
-            {cartItems.map(item => (
-              <div key={item.id} className="cart-item">
-                <img src={item.thumbnail} alt={item.title} />
-                <div className="cart-item-details">
-                  <h3>{item.title}</h3>
-                  <p>Price: ${item.price}</p>
-                  <div className="quantity-control">
-                    <button 
-                      onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                    >
-                      -
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button 
-                      onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button 
-                    className="remove-btn"
-                    onClick={() => handleRemoveItem(item.id)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="cart-summary">
-            <h2>Total: ${calculateTotal()}</h2>
-            <button className="checkout-btn">
-              Proceed to Checkout
+    <header className="creative-header">
+      <div className="header-container">
+        <div className="logo-section">
+          <Link to="/" className="logo">
+            <span className="logo-text">ShopSphere</span>
+            <span className="logo-tagline">Discover. Shop. Enjoy.</span>
+          </Link>
+        </div>
+        <nav className="creative-nav">
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/products">Products</Link></li>
+            <li><Link to="/categories">Categories</Link></li>
+            <li><Link to="/about">About</Link></li>
+          </ul>
+        </nav>
+        <div className="header-actions">
+          <div className="search-container">
+            <input 
+              type="text" 
+              placeholder="Search products..." 
+              className="search-input" 
+            />
+            <button className="search-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
             </button>
           </div>
-        </>
-      )}
-    </div>
+          <Link to="/cart" className="cart-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            {cartItemCount > 0 && (
+              <span className="cart-count">{cartItemCount}</span>
+            )}
+          </Link>
+        </div>
+      </div>
+    </header>
   );
 }
 
-export default Cart;
+export default Header;
