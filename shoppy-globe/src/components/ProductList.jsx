@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ProductItem from './ProductItem';
 import { useProductFetch } from '../hooks/useProductFetch';
+import { useSearch } from '../context/SearchContext';
 import '../styles/ProductList.css';
 
 function ProductList() {
-  const { products, loading, error } = useProductFetch();
-  const [searchTerm, setSearchTerm] = useState('');
+  const { products = [], loading, error } = useProductFetch();
+  const { searchTerm } = useSearch();
 
-  const filteredProducts = products.filter(product => 
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = products.filter(product => {
+    if (!product) return false;
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      (product.title && product.title.toLowerCase().includes(searchLower)) ||
+      (product.category && product.category.toLowerCase().includes(searchLower)) ||
+      (product.brand && product.brand.toLowerCase().includes(searchLower))
+    );
+  });
 
   if (loading) return <div className="loading-container">Loading products...</div>;
   if (error) return <div className="error-container">Error: {error}</div>;
@@ -19,23 +26,22 @@ function ProductList() {
       <div className="product-list-header">
         <h1>Discover Our Collection</h1>
         <p>Find the perfect items that match your style</p>
-        <div className="search-container">
-          <input 
-            type="text" 
-            placeholder="Search products..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-        </div>
       </div>
       <div className="product-grid">
-        {filteredProducts.map(product => (
-          <ProductItem 
-            key={product.id} 
-            product={product} 
-          />
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map(product => (
+            product && (
+              <ProductItem 
+                key={product.id} 
+                product={product} 
+              />
+            )
+          ))
+        ) : (
+          <div className="no-results">
+            <p>No products found matching your search.</p>
+          </div>
+        )}
       </div>
     </div>
   );
